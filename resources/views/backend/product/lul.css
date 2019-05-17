@@ -1,0 +1,64 @@
+@import "responsive.min.css";
+[draggable] {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
+}
+.uploadArea {
+    border: dashed #676465;
+    text-align: center;
+    line-height: 30px;
+    font-size: 18px;
+    margin-bottom: 20px !important;
+    cursor: pointer;
+    max-width: 130px;
+}
+.uploadArea.selected {
+    border: dashed #fa623f !important;
+}
+.uploadArea .new {
+    padding-top: 15px !important;
+}
+.uploadArea input[type="file"] {
+    height: 30px;
+    color: transparent;
+}
+.uploadArea i {
+    font-size: 25px;
+    padding-top: 15px;
+}
+.image-preview img {
+    padding-top: 0px !important;
+    width: 130px;
+    height: 85px;
+}
+.image-preview .remove {
+    text-align: right;
+    color: white;
+    position: absolute;
+    width: 100%;
+    padding-right: 7px;
+    background-color: #373435;
+    opacity: 0.4;
+    height: 25px;
+}
+.image-preview .remove i {
+    font-size: 22px;
+    padding: 0;
+    margin: 0;
+    opacity: 1 !important;
+}
+.item-box,
+.box-drag {
+    float: left;
+    display: block;
+}
+.no-margin {
+    margin: 0px !important;
+}
+.no-padding {
+    padding: 0px !important;
+}
