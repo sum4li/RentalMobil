@@ -2,21 +2,24 @@
 @section('title','Dashboard')
 @section('content')
 <div class="col-xl-3 col-md-6 mb-4">
+    <a href="{{route('car.index')}}" style="text-decoration:none;">
     <div class="card border-left-primary shadow-sm h-100 py-2">
         <div class="card-body">
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Produk</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$product->get()->count()}}</div>
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Mobil Tersedia</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$car->where('status','tersedia')->get()->count()}} / {{$car->get()->count()}}</div>
                 </div>
                 <div class="col-auto">
-                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    <i class="fas fa-car fa-2x text-gray-300"></i>
                 </div>
             </div>
         </div>
     </div>
+    </a>
 </div>
 <div class="col-xl-3 col-md-6 mb-4">
+    <a href="{{route('customer.index')}}" style="text-decoration:none;">
     <div class="card border-left-primary shadow-sm h-100 py-2">
         <div class="card-body">
             <div class="row no-gutters align-items-center">
@@ -25,26 +28,46 @@
                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{$customer->get()->count()}}</div>
                 </div>
                 <div class="col-auto">
-                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    <i class="fas fa-user fa-2x text-gray-300"></i>
                 </div>
             </div>
         </div>
     </div>
+    </a>
 </div>
 <div class="col-xl-3 col-md-6 mb-4">
+    <a href="{{route('transaction.history')}}" style="text-decoration:none;">
     <div class="card border-left-primary shadow-sm h-100 py-2">
         <div class="card-body">
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Transaksi</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$transaction->get()->count()}}</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$transaction->where('status','selesai')->get()->count()}}</div>
                 </div>
                 <div class="col-auto">
-                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    <i class="fas fa-book fa-2x text-gray-300"></i>
                 </div>
             </div>
         </div>
     </div>
+    </a>
+</div>
+<div class="col-xl-3 col-md-6 mb-4">
+    <a href="{{route('transaction.index')}}" style="text-decoration:none;">
+    <div class="card border-left-primary shadow-sm h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Transaksi Aktif</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$transaction->where('status','proses')->get()->count()}}</div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-book fa-2x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    </a>
 </div>
 <div class="col-lg-6">
     <div class="card shadow-sm mb-4">

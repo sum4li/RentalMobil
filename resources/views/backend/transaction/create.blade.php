@@ -31,26 +31,26 @@
                 <div class="row" id="product">
                     <div class="col">
                         <div class="form-group">
-                            <label>Produk</label>
-                            <select name="product_id[]" class="form-control product" required="">
-                                @foreach (App\Product::get() as $row)
-                                    <option value="{{$row->id}}">{{title_case($row->name)}}</option>
+                            <label>Mobil</label>
+                            <select name="car_id" class="form-control car" required="">
+                                @foreach (App\Car::where('status','tersedia')->get() as $row)
+                                <option value="{{$row->id}}">{{title_case($row->name).' ('.$row->license_number.') ('.$row->year.')'}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label>Jumlah</label>
-                            <input type="text" name="qty[]" class="form-control harga" required="">
-                        </div>
-                    </div>
                 </div>
-                <div class="add_product"></div>
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <button class="btn btn-block btn-primary" id="add_product"><i class="fa fa-plus"></i></button>
+                          <label>Tanggal Sewa</label>
+                          <input type="text" name="rent_date" class="form-control datepicker" required="">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                          <label>Tanggal Kembali</label>
+                          <input type="text" name="back_date" class="form-control datepicker" required="">
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@ $(document).ready(function () {
                 $.each(response, function (index, data) {
                     results.push({
                         id: data.id,
-                        text: data.name + ' ('+data.phone_number+')' + ' ('+data.email+')'
+                        text: data.name + ' ('+data.nik+')' + ' ('+data.phone_number+')'
                     });
                 });
 
@@ -115,60 +115,58 @@ $(document).ready(function () {
     }
 
     bootstrap_select2_customer('.customer','body','{!! route('customer.getCustomer') !!}');
-    bootstrap_select_product('.product','body');
-
-    $("#add_product").click( function (e) {
-        e.preventDefault();
-
-        $('<div class="row" id="add_produk">'+
-            '<div class="col-lg-6">'+
-                '<div class="form-group">'+
-                    '<label>Produk</label>'+
-                    '<select name="product_id[]" class="form-control product" required="">'+
-                        @foreach (App\Product::get() as $row)
-                            '<option value="{{$row->id}}">{{title_case($row->name)}}</option>'+
-                        @endforeach
-                    '</select>'+
-                '</div>'+
-            '</div>'+
-            '<div class="col-lg-6">'+
-                '<div class="form-group row">'+
-                    '<label class="col-lg-12">Jumlah</label>'+
-                        '<div class="col-lg-10">'+
-                            '<input type="text" name="qty[]" class="form-control harga" required="">'+
-                        '</div>'+
-                        '<div class="col-lg-2">'+
-                            '<a href="#" class="btn btn-danger" id="remove_form"><i class="fa fa-times"></i></a>'+
-                        '</div>'+
-                '</div>'+
-            '</div>'+
-        '</div>').appendTo('.add_product');
-        bootstrap_select_product('.product','body');
-        $('.harga').mask('9999999999',{placeholder: 'Harus Angka'});
-    });
-
-    $('body').on('click','#remove_form',function(e){
-        e.preventDefault();
-        $(this).parents('#add_produk').remove();
-    });
+    bootstrap_select_product('.car','body');
 
 
     $('select[name="customer"]').on('change',function(){
         var pilihan = $('select[name="customer"] option:selected').val();
         if(pilihan == 'new'){
             $('.new_customer').append(
-            '<div class="form-group">'+
-                '<label>Nama</label>'+
-                '<input type="text" class="form-control" name="name" required="">'+
-            '</div>'+
-            '<div class="form-group">'+
-                '<label>No Telepon</label>'+
-                '<input type="text" class="form-control" name="phone_number" required="">'+
-            '</div>'+
-            '<div class="form-group">'+
-                '<label>Email</label>'+
-                '<input type="text" class="form-control" name="email" required="">'+
-            '</div>');
+                '<div class="row">'+
+                    '<div class="col">'+
+                        '<div class="form-group">'+
+                          '<label>NIK</label>'+
+                          '<input type="text" name="nik" id="" class="form-control border-dark-50" required="">'+
+                        '</div>'+
+                    '</div>'+
+                    '<div class="col">'+
+                        '<div class="form-group">'+
+                          '<label>Nama</label>'+
+                          '<input type="text" name="name" id="" class="form-control border-dark-50" required="">'+
+                        '</div>'+
+                    '</div>'+
+                '</div>'+
+                '<div class="row">'+
+                    '<div class="col">'+
+                        '<div class="form-group">'+
+                          '<label>Alamat</label>'+
+                          '<input type="text" name="address" id="" class="form-control border-dark-50" required="">'+
+                        '</div>'+
+                    '</div>'+
+                    '<div class="col">'+
+                        '<div class="form-group">'+
+                          '<label>Jenis Kelamin</label>'+
+                          '<select name="sex" class="form-control">'+
+                              '<option value="laki-laki">Laki-Laki</option>'+
+                              '<option value="perempuan">Perempuan</option>'+
+                          '</select>'+
+                        '</div>'+
+                    '</div>'+
+                '</div>'+
+                '<div class="row">'+
+                    '<div class="col">'+
+                        '<div class="form-group">'+
+                          '<label>No Telp</label>'+
+                          '<input type="text" name="phone_number" id="" class="form-control border-dark-50" required="">'+
+                        '</div>'+
+                    '</div>'+
+                    '<div class="col">'+
+                        '<div class="form-group">'+
+                          '<label>Email</label>'+
+                          '<input type="email" name="email" id="" class="form-control border-dark-50" required="">'+
+                        '</div>'+
+                    '</div>'+
+                '</div>');
 
             $('select[name="customer_id"]').attr('disabled','disabled');
         }else{
@@ -177,7 +175,11 @@ $(document).ready(function () {
         }
     });
 
-    $('.harga').mask('9999999999',{placeholder: 'Harus Angka'});
+    $('.datepicker').datepicker({
+        format : 'yyyy-mm-dd',
+        autoclose: true,
+        todayHighlight:true
+    });
 
 });
 </script>

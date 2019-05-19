@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use App\TransactionDetail;
-use App\Product;
+use App\Car;
 use App\Customer;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\Exports\TransactionExport;
@@ -19,10 +18,9 @@ class TransactionController extends Controller
 
     public function __construct()
     {
-        $this->product = new Product();
+        $this->car = new Car();
         $this->customer = new Customer();
         $this->transaction = new Transaction();
-        $this->transactionDetail = new TransactionDetail();
     }
 
     public function index()
@@ -30,9 +28,14 @@ class TransactionController extends Controller
         return view('backend.transaction.index');
     }
 
-    public function source(){
+    public function history(){
+        return view('backend.transaction.history');
+    }
+
+    public function source($status){
         $query= Transaction::query();
-        $query->orderBy('date','desc');
+        $query->where('status',$status);
+        $query->orderBy('created_at','desc');
         return DataTables::eloquent($query)
         ->filter(function ($query) {
             if (request()->has('search')) {
@@ -44,20 +47,20 @@ class TransactionController extends Controller
             ->addColumn('invoice_no', function ($data) {
                 return $data->invoice_no;
             })
-            ->addColumn('date', function ($data) {
-                return Carbon::parse($data->date)->format('d-m-Y');
+            ->addColumn('rent_date', function ($data) {
+                return Carbon::parse($data->rent_date)->format('d-m-Y');
             })
-            ->addColumn('time', function ($data) {
-                return Carbon::parse($data->date)->format('H:i:s');
+            ->addColumn('back_date', function ($data) {
+                return Carbon::parse($data->back_date)->format('d-m-Y');
             })
             ->addColumn('customer', function ($data) {
                 return title_case($data->customer->name);
             })
-            ->addColumn('amount', function ($data) {
-                return number_format($data->amount,0,',','.');
+            ->addColumn('car', function ($data) {
+                return title_case($data->car->name);
             })
             ->addColumn('status', function ($data) {
-                return $data->status == 'proses' ? '<span class="badge badge-danger">'.$data->status.'</span>':'<span class="badge badge-success">'.$data->status.'</span>';
+                return $data->status == 'proses' ? '<span class="badge badge-success">'.$data->status.'</span>':'<span class="badge badge-secondary">'.$data->status.'</span>';
             })
             ->addIndexColumn()
             ->addColumn('action', 'backend.transaction.index-action')
@@ -82,31 +85,23 @@ class TransactionController extends Controller
                 $customer_id = $customer->id;
             }
 
+            $car = $this->car->find($request->car_id);
             $data_transaction = [
                 'invoice_no'=> $this->generateInvoice(date('Y-m-d')),
+                'car_id'=> $car->id,
                 'customer_id'=> $customer_id,
-                'date'=> date('Y-m-d H:i:s'),
+                'rent_date'=> $request->rent_date,
+                'back_date'=> $request->back_date,
+                'price'=> $car->price,
+                'amount'=> Carbon::parse($request->rent_date)->diffInDays($request->back_date) * $car->price,
                 'status'=> 'proses',
             ];
 
             $transaction = $this->transaction->create($data_transaction);
-
-            for ($i=0; $i <count($request->product_id) ; $i++) {
-                $price = $this->product->find($request->input('product_id.'.$i))->price;
-                $this->transactionDetail->create([
-                    'transaction_id'=> $transaction->id,
-                    'product_id'=> $request->input('product_id.'.$i),
-                    'qty'=> $request->input('qty.'.$i),
-                    'price'=> $price,
-                    'total' => $price * $request->input('qty.'.$i)
-                ]);
-            }
-
-            $amount = $this->transactionDetail->where('transaction_id',$transaction->id)->get()->sum('total');
-            $this->transaction->find($transaction->id)->update(['amount'=>$amount]);
+            $car->update(['status'=>'terpakai']);
             DB::commit();
-            // return redirect()->route('transaction.index')->with('success-message','Data telah disimpan');
-            return redirect()->route('transaction.print',$transaction->id);
+            return redirect()->route('transaction.index')->with('success-message','Data telah disimpan');
+            // return redirect()->route('transaction.print',$transaction->id);
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with('error-message',$e->getMessage());
@@ -153,14 +148,27 @@ class TransactionController extends Controller
         $data = $this->transaction->find($id);
         // return view('backend.transaction.cetak',compact(['data']));
         $pdf = PDF::loadView('backend.transaction.cetak',compact(['data']));
-        return $pdf->stream();
+        return $pdf->stream($data->invoice_no.'.pdf');
+    }
+
+    public function complete(Request $request,$id){
+        $transaction = $this->transaction->find($id);
+        $transaction->update([
+            'return_date'=>$request->return_date,
+            'status'=>'selesai',
+            'penalty'=>Carbon::parse($transaction->back_date)->diffInDays($request->return_date) * $transaction->car->penalty,
+            'amount'=>Carbon::parse($transaction->back_date)->diffInDays($request->return_date) * $transaction->car->penalty + $transaction->amount
+
+        ]);
+        $this->car->find($transaction->car_id)->update(['status'=>'tersedia']);
+        return redirect()->route('transaction.index')->with('success-message','Data telah disimpan');
     }
 
     private function generateInvoice($date){
         $tanggal = substr($date,8,2);
         $bulan = substr($date,5,2);
         $tahun = substr($date,2,2);
-        $transaction = $this->transaction->whereDate('date',$date)->get();
+        $transaction = $this->transaction->whereDate('created_at',$date)->get();
         $no = 'TRX-'.$tanggal.$bulan.$tahun.'-'.sprintf('%05s',$transaction->count()+1);
         return $no;
     }

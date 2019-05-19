@@ -15,10 +15,10 @@ class setting_seeder extends Seeder
         $name=['Nama Toko','Alamat','Nomer Telepon','Email'];
         $type=['text','text','text','text'];
         $description=[
-            'Laundry',
-            'Kacangan, Andong, Boyolali',
-            '0812345678',
-            'laundry@laundry.com'
+            'Rental Mobil',
+            $faker->address,
+            $faker->phoneNumber,
+            $faker->email
         ];
         for($i=0;$i<count($name);$i++){
 

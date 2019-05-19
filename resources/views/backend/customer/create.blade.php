@@ -13,8 +13,31 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
+                          <label>NIK</label>
+                          <input type="text" name="nik" id="" class="form-control border-dark-50" required="">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
                           <label>Nama</label>
                           <input type="text" name="name" id="" class="form-control border-dark-50" required="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                          <label>Alamat</label>
+                          <input type="text" name="address" id="" class="form-control border-dark-50" required="">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                          <label>Jenis Kelamin</label>
+                          <select name="sex" class="form-control">
+                              <option value="laki-laki">Laki-Laki</option>
+                              <option value="perempuan">Perempuan</option>
+                          </select>
                         </div>
                     </div>
                 </div>
@@ -28,7 +51,7 @@
                     <div class="col">
                         <div class="form-group">
                           <label>Email</label>
-                          <input type="text" name="email" id="" class="form-control border-dark-50" required="">
+                          <input type="email" name="email" id="" class="form-control border-dark-50" required="">
                         </div>
                     </div>
                 </div>

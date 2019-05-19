@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransactionDetailsTable extends Migration
+class CreateCarImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateTransactionDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transaction_details', function (Blueprint $table) {
+        Schema::create('car_images', function (Blueprint $table) {
             $table->uuid('id');
-            $table->uuid('transaction_id');
-            $table->uuid('product_id');
-            $table->string('qty')->nullable()->default('text');
-            $table->integer('price')->unsigned()->nullable();
-            $table->integer('total')->unsigned()->nullable();
+            $table->uuid('car_id');
+            $table->string('image')->nullable()->default('text');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +29,6 @@ class CreateTransactionDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaction_details');
+        Schema::dropIfExists('car_images');
     }
 }

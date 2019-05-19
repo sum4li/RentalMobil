@@ -1,18 +1,20 @@
 ## Laundry
 
-![](screenshoot/Login.png)
+![](screenshoot/login.png)
 
-Aplikasi Laundry simlple dibangun dengan laravel 5.8 dan Mysql
+Aplikasi Rental Mobil berbasis web dibangun dengan laravel 5.8 dan Mysql
 
 ## Fitur
 
 1. Management Pengguna
-2. Management Produk
+2. Management Mobil
 3. Management Customer
 4. Management Transaksi
-5. Management List Transaksi
+5. Management List Transaksi Aktif
+5. Management History Transaksi
 6. Management Setting Aplikasi
 7. Management Print Kuitansi Transaksi
 8. Management Export Data Transaksi Via Excel
+9. Integrasi dengan website (optional)
 
 

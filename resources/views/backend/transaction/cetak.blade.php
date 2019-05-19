@@ -1,4 +1,5 @@
 @extends('backend.print')
+@section('title',$data->invoice_no)
 @section('content')
 <div class="header">
     <table class="table table-borderless">
@@ -17,7 +18,7 @@
                 <td style="text-align:left;">
                     Invoice &nbsp;: {{$data->invoice_no}}
                     <br>
-                    Tanggal : {{$data->date}}
+                    Tanggal : {{Carbon\Carbon::parse($data->return_date)->format('d-m-Y')}}
                     <br>
                     Kepada &nbsp;: {{title_case($data->customer->name)}}
 
@@ -31,24 +32,28 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Transaki</th>
-                <th>Jumlah</th>
-                <th>Harga Satuan</th>
+                <th>Mobil</th>
+                <th>Tanggal Sewa</th>
+                <th>Tanggal kembali</th>
+                <th>Tanggal kembalikan</th>
+                <th>Harga Sewa</th>
+                <th>Denda</th>
                 <th>Total</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (App\TransactionDetail::where('transaction_id',$data->id)->get() as $row)
             <tr>
-                <td>{{$loop->iteration}}</td>
-                <td>{{$row->product->name}}</td>
-                <td>{{$row->qty}}</td>
-                <td>{{number_format($row->price,0,',','.')}}</td>
-                <td>{{number_format($row->total,0,',','.')}}</td>
+                <td>1</td>
+                <td>{{$data->car->name}}</td>
+                <td>{{Carbon\Carbon::parse($data->rent_date)->format('d-m-Y')}}</td>
+                <td>{{Carbon\Carbon::parse($data->back_date)->format('d-m-Y')}}</td>
+                <td>{{Carbon\Carbon::parse($data->return_date)->format('d-m-Y')}}</td>
+                <td>{{number_format($data->price,0,',','.')}}</td>
+                <td>{{number_format($data->penalty,0,',','.')}}</td>
+                <td>{{number_format($data->amount,0,',','.')}}</td>
             </tr>
-            @endforeach
             <tr>
-                <td colspan="4">
+                <td colspan="7">
                     <strong>
                         Grand Total
                     </strong>

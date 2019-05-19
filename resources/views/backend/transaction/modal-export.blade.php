@@ -1,9 +1,9 @@
 <!-- Modal -->
 <div class="modal fade" id="export" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Ekspor Laporan Transaksi</h5>
+        <div class="modal-content rounded-0">
+            <div class="modal-header bg-gradient-success rounded-0">
+                <h5 class="modal-title text-white">Ekspor Laporan Transaksi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -24,8 +24,6 @@
                         <button type="button" class="btn btn-light shadow-sm" data-dismiss="modal">Close</button>
                     </div>
                 </form>
-            </div>
-            <div class="modal-footer">
             </div>
         </div>
     </div>

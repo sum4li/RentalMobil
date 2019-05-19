@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use App\Product;
+use App\Car;
 use App\Customer;
 use App\Transaction;
 
@@ -19,7 +19,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->product = new Product();
+        $this->car = new Car();
         $this->customer = new Customer();
         $this->transaction = new Transaction();
     }
@@ -35,21 +35,21 @@ class LoginController extends Controller
     }
 
     public function dashboard(){
-        $product = $this->product;
+        $car = $this->car;
         $customer = $this->customer;
         $transaction  = $this->transaction;
-        // $transaction_data = [];
+        $transaction_data = [];
         for($i=1;$i<=12;$i++){
-            $lul = $this->transaction->whereMonth('date',sprintf('%02s',$i))->whereYear('date',date('Y'))->get()->count();
+            $lul = $this->transaction->whereMonth('created_at',sprintf('%02s',$i))->whereYear('created_at',date('Y'))->get()->count();
             $transaction_data [] = $lul;
         }
         $label = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
         $chartjs = app()->chartjs
-        ->name('transaksi')
-        ->type('line')
-        ->size(['width' => 400, 'height' => 200])
-        ->labels($label)
-        ->datasets([
+         ->name('trans')
+         ->type('line')
+         ->size(['width' => 400, 'height' => 200])
+         ->labels($label)
+         ->datasets([
             [
                 "label" => "Transaksi",
                 'backgroundColor' => "rgba(78, 115, 223, 0.05)",
@@ -62,11 +62,12 @@ class LoginController extends Controller
                 "pointHoverBackgroundColor" => "rgba(78, 115, 223, 1)",
                 "pointHoverBorderColor" => "rgba(78, 115, 223, 1)",
                 'data' => $transaction_data,
-                // 'data' => [1,2,3,4,5,6,7,8,9,10,11,12],
+                // 'data' => [1,2,3,4,5,6,7,8,9,10,11,12]
             ]
         ])
-        ->options([]);
-        return view('backend.dashboard.index',compact(['product','customer','transaction','chartjs']));
+         ->options([]);
+
+        return view('backend.dashboard.index',compact(['car','customer','transaction','chartjs']));
     }
 
 }

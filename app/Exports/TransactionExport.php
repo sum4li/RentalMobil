@@ -29,7 +29,7 @@ class TransactionExport implements FromView
     public function view(): View
     {
         return view('backend.transaction.export', [
-            'transaction' => $this->transaction->whereBetween('date',[$this->from,$this->to])->get()
+            'transaction' => $this->transaction->where('status','selesai')->whereBetween('created_at',[$this->from,$this->to])->get()
         ]);
     }
 

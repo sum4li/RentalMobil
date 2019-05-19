@@ -1,3 +1,17 @@
+<span data-toggle="modal" data-target="#show" data-name="{{$name}}"
+    data-nik="{{$nik}}"
+    data-address="{{$address}}"
+    data-sex="{{$sex}}"
+    data-phone_number="{{$phone_number}}"
+    data-email="{{$email}}">
+    <a href="#"
+        class="btn btn-info btn-sm shadow-sm"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Detail">
+        <i class="fa fa-search"></i>
+    </a>
+</span>
 <a href="{{route('customer.edit',[$id])}}"
     class="btn btn-success btn-sm shadow-sm"
     data-toggle="tooltip"

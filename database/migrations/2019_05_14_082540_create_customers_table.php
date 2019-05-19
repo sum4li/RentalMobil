@@ -17,6 +17,9 @@ class CreateCustomersTable extends Migration
             $table->uuid('id');
             $table->string('name')->nullable()->default('text');
             $table->string('slug')->nullable()->default('text');
+            $table->string('nik')->nullable()->default('text');
+            $table->string('sex')->nullable()->default('text');
+            $table->text('address')->nullable();
             $table->string('phone_number')->nullable()->default('text');
             $table->string('email')->nullable()->default('text');
             $table->softDeletes();

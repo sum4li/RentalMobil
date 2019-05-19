@@ -13,6 +13,6 @@ class Customer extends Model
 
     protected $table = 'customers';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['name','slug','phone_number','email'];
+    protected $fillable = ['nik','name','slug','sex','address','phone_number','email'];
     public $incrementing = false;
 }

@@ -12,10 +12,10 @@
                     <tr>
                         <th>#</th>
                         <th>No Invoice</th>
-                        <th>Tanggal</th>
-                        <th>Waktu</th>
+                        <th>Date Sewa</th>
+                        <th>Date Kembali</th>
                         <th>Customer</th>
-                        <th>Total</th>
+                        <th>Mobil</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -24,7 +24,8 @@
         </div>
     </div>
 </div>
-@include('backend.transaction.modal_export')
+@include('backend.transaction.modal-export')
+@include('backend.transaction.modal-complete')
 @endsection
 @push('scripts')
 <script src="{{ asset('backend/js/sweet-alert.min.js') }}"></script>
@@ -38,15 +39,15 @@ $(document).ready(function () {
          responsive: true,
          stateSave: true,
          dom: '<"toolbar">rtp',
-         ajax: '{!! route('transaction.source') !!}',
+         ajax: '{!! route("transaction.source","proses") !!}',
          columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex',width:"2%", orderable : false},
             // {data: 'code', name: 'code',width:"5%", orderable : false},
             {data: 'invoice_no', name: 'invoice_no',width:"5%", orderable : false},
-            {data: 'date', name: 'date',width:"5%", orderable : false},
-            {data: 'time', name: 'time',width:"5%", orderable : false},
+            {data: 'rent_date', name: 'rent_date',width:"5%", orderable : false},
+            {data: 'back_date', name: 'back_date',width:"5%", orderable : false},
             {data: 'customer', name: 'customer',width:"15%", orderable : false},
-            {data: 'amount', name: 'amount',width:"5%", orderable : false},
+            {data: 'car', name: 'car',width:"5%", orderable : false},
             {data: 'status', name: 'status',width:"5%", orderable : false},
             {data: 'action', name: 'action',width:"5%", orderable : false}
          ]
@@ -62,9 +63,9 @@ $(document).ready(function () {
                     '</div>' +
                 '</div>'+
                 '<div class="col-lg-2">'+
-                    '<span data-toggle="modal" data-target="#export">'+
-                    '<a href="#export" class="btn btn-sm btn-success float-right" data-toggle="tooltip" title="Export ke Excel"><i class="fas fa-file-excel"></i></a>'+
-                    '</span>'+
+                    // '<span data-toggle="modal" data-target="#export">'+
+                    // '<a href="#export" class="btn btn-sm btn-success float-right" data-toggle="tooltip" title="Export ke Excel"><i class="fas fa-file-excel"></i></a>'+
+                    // '</span>'+
                 '</div>' +
                 '</div>');
 
@@ -100,6 +101,21 @@ $(document).ready(function () {
         format : 'yyyy-mm-dd',
         autoclose: true,
         todayHighlight:true
+    });
+
+    $('#complete').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+
+        var invoice_no = button.data('invoice_no'); // Extract info from data-* attributes
+        var form = button.data('form'); // Extract info from data-* attributes
+
+        var modal = $(this)
+        console.log(invoice_no);
+
+        modal.find('input[name="invoice_no"]').val(invoice_no);
+        modal.find('#form').attr('action',form);
+
+
     });
 });
 </script>

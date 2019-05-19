@@ -45,15 +45,17 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    //product
-    Route::get('/admin/product','ProductController@index')->name('product.index');
-    Route::get('/admin/product/create','ProductController@create')->name('product.create');
-    Route::get('/admin/product/source','ProductController@source')->name('product.source');
-    Route::get('/admin/product/{id}/edit','ProductController@edit')->name('product.edit');
-    Route::get('/admin/product/{id}/show','ProductController@show')->name('product.show');
-    Route::get('/admin/product/{id}/destroy','ProductController@destroy')->name('product.destroy');
-    Route::post('/admin/product/store','ProductController@store')->name('product.store');
-    Route::post('/admin/product/{id}/update','ProductController@update')->name('product.update');
+    //car
+    Route::get('/admin/car','CarController@index')->name('car.index');
+    Route::get('/admin/car/create','CarController@create')->name('car.create');
+    Route::get('/admin/car/source','CarController@source')->name('car.source');
+    Route::get('/admin/car/{id}/edit','CarController@edit')->name('car.edit');
+    Route::get('/admin/car/{id}/show','CarController@show')->name('car.show');
+    Route::get('/admin/car/{id}/destroy','CarController@destroy')->name('car.destroy');
+    Route::post('/admin/car/store','CarController@store')->name('car.store');
+    Route::post('/admin/car/{id}/update','CarController@update')->name('car.update');
+    Route::get('/admin/car/{id}/getImage','CarController@getImage')->name('car.getImage');
+    Route::get('/admin/car/{id}/destroyImage','CarController@destroyImage')->name('car.destroyImage');
 
     //customer
     Route::get('/admin/customer','CustomerController@index')->name('customer.index');
@@ -66,10 +68,23 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/customer/store','CustomerController@store')->name('customer.store');
     Route::post('/admin/customer/{id}/update','CustomerController@update')->name('customer.update');
 
+    //manufacture
+    Route::get('/admin/manufacture','ManufactureController@index')->name('manufacture.index');
+    Route::get('/admin/manufacture/create','ManufactureController@create')->name('manufacture.create');
+    Route::get('/admin/manufacture/source','ManufactureController@source')->name('manufacture.source');
+    Route::get('/admin/manufacture/{id}/edit','ManufactureController@edit')->name('manufacture.edit');
+    Route::get('/admin/manufacture/{id}/show','ManufactureController@show')->name('manufacture.show');
+    Route::get('/admin/manufacture/{id}/destroy','ManufactureController@destroy')->name('manufacture.destroy');
+    Route::get('/admin/manufacture/getManufacture','ManufactureController@getManufacture')->name('manufacture.getManufacture');
+    Route::post('/admin/manufacture/store','ManufactureController@store')->name('manufacture.store');
+    Route::post('/admin/manufacture/{id}/update','ManufactureController@update')->name('manufacture.update');
+    Route::get('/admin/manufacture/{id}/find','ManufactureController@find')->name('manufacture.find');
+
     //transaction
     Route::get('/admin/transaction','TransactionController@index')->name('transaction.index');
     Route::get('/admin/transaction/create','TransactionController@create')->name('transaction.create');
-    Route::get('/admin/transaction/source','TransactionController@source')->name('transaction.source');
+    Route::get('/admin/transaction/history','TransactionController@history')->name('transaction.history');
+    Route::get('/admin/transaction/{status}/source','TransactionController@source')->name('transaction.source');
     Route::get('/admin/transaction/{id}/edit','TransactionController@edit')->name('transaction.edit');
     Route::get('/admin/transaction/{id}/print','TransactionController@print')->name('transaction.print');
     Route::get('/admin/transaction/{id}/show','TransactionController@show')->name('transaction.show');
@@ -77,6 +92,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/transaction/store','TransactionController@store')->name('transaction.store');
     Route::post('/admin/transaction/{id}/update','TransactionController@update')->name('transaction.update');
     Route::post('/admin/transaction/export','TransactionController@export')->name('transaction.export');
+    Route::post('/admin/transaction/{id}/complete','TransactionController@complete')->name('transaction.complete');
 
     //setting
     Route::get('/admin/setting','SettingController@index')->name('setting.index');

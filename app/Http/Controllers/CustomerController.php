@@ -28,12 +28,23 @@ class CustomerController extends Controller
         ->filter(function ($query) {
             if (request()->has('search')) {
                 $query->where(function ($q) {
-                    $q->where('name', 'LIKE', '%' . request('search')['value'] . '%');
+                    $q->where('name', 'LIKE', '%' . request('search')['value'] . '%')
+                    ->orWhere('nik', 'LIKE', '%' . request('search')['value'] . '%')
+                    ->orWhere('address', 'LIKE', '%' . request('search')['value'] . '%');
                 });
             }
             })
+            ->addColumn('nik', function ($data) {
+                return $data->nik;
+            })
+            ->addColumn('address', function ($data) {
+                return str_limit($data->address,30);
+            })
             ->addColumn('name', function ($data) {
                 return title_case($data->name);
+            })
+            ->addColumn('sex', function ($data) {
+                return title_case($data->sex);
             })
             ->addColumn('email', function ($data) {
                 return $data->email;
