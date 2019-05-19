@@ -1,10 +1,10 @@
-## Laundry
+## Car Rental
 
 ![](screenshoot/login.png)
 
 Aplikasi Rental Mobil berbasis web dibangun dengan laravel 5.8 dan Mysql
 
-## Fitur
+## Fiitur
 
 1. Management Pengguna
 2. Management Mobil
