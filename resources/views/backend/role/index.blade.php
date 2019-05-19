@@ -31,6 +31,15 @@ $(document).ready(function () {
          serverSide: true,
          responsive: true,
          stateSave: true,
+         language: {
+            paginate: {
+                next: '<i class="fa fa-angle-right"></i>',
+                previous: '<i class="fa fa-angle-left"></i>'
+            },
+            processing: 'Loading . . .',
+            emptyTable: 'Tidak Ada Data',
+            zeroRecords: 'Tidak Ada Data'
+         },
          dom: '<"toolbar">rtp',
          ajax: '{!! route('role.source') !!}',
          columns: [

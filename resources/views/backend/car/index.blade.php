@@ -35,7 +35,15 @@ $(document).ready(function () {
          processing: true,
          serverSide: true,
          responsive: true,
-         pageLength: 5,
+         language: {
+            paginate: {
+                next: '<i class="fa fa-angle-right"></i>',
+                previous: '<i class="fa fa-angle-left"></i>'
+            },
+            processing: 'Loading . . .',
+            emptyTable: 'Tidak Ada Data',
+            zeroRecords: 'Tidak Ada Data'
+         },
          stateSave: true,
          dom: '<"toolbar">rtp',
          ajax: '{!! route('car.source') !!}',
