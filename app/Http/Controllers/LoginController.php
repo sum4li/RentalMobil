@@ -53,21 +53,21 @@ class LoginController extends Controller
             [
                 "label" => "Transaksi",
                 'backgroundColor' => "rgba(78, 115, 223, 0.05)",
-                'borderColor' => "rgba(78, 115, 223, 1)",
+                'borderColor' => "#e74a3b",
                 "pointHoverRadius" => "3",
                 "pointHitRadius"=> "10",
                 "pointBorderWidth"=> "2",
-                "pointBorderColor" => "rgba(78, 115, 223, 1)",
-                "pointBackgroundColor" => "rgba(78, 115, 223, 1)",
-                "pointHoverBackgroundColor" => "rgba(78, 115, 223, 1)",
-                "pointHoverBorderColor" => "rgba(78, 115, 223, 1)",
+                "pointBorderColor" => "#e74a3b",
+                "pointBackgroundColor" => "#e74a3b",
+                "pointHoverBackgroundColor" => "#e74a3b",
+                "pointHoverBorderColor" => "#e74a3b",
                 'data' => $transaction_data,
                 // 'data' => [1,2,3,4,5,6,7,8,9,10,11,12]
             ]
         ])
          ->optionsRaw("{
-             animation: {
-                 duration: '2000'
+             'animation': {
+                 'duration': 2000
              }
          }");
 
