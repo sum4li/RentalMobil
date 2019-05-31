@@ -18,7 +18,7 @@
                             </div>
                             <div class="col-lg-2">
                             <div class="form-check form-check-inline">
-                                <select name="customer" class="form-control .select2">
+                                <select name="customer" class="custom-select">
                                     <option value="old" selected>Lama</option>
                                     <option value="new">Baru</option>
                                 </select>
@@ -107,7 +107,7 @@ $(document).ready(function () {
         });
     }
 
-    function bootstrap_select_product(selector,parent){
+    function bootstrap_select(selector,parent){
         $(selector).select2({
             dropdownParent: $(parent),
             theme: 'bootstrap'
@@ -115,7 +115,8 @@ $(document).ready(function () {
     }
 
     bootstrap_select2_customer('.customer','body','{!! route('customer.getCustomer') !!}');
-    bootstrap_select_product('.car','body');
+    bootstrap_select('.car','body');
+    // bootstrap_select('.select2','body');
 
 
     $('select[name="customer"]').on('change',function(){
@@ -180,6 +181,7 @@ $(document).ready(function () {
         autoclose: true,
         todayHighlight:true
     });
+
 
 });
 </script>
