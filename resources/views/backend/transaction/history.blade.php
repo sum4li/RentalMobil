@@ -7,20 +7,22 @@
                 <h6 class="m-0 font-weight-bold text-primary">@yield('title')</h6>
         </div>
         <div class="card-body">
-            <table class="table table-sm table-bordered" id="transaction-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>No Invoice</th>
-                        <th>Date Sewa</th>
-                        <th>Date Kembali</th>
-                        <th>Customer</th>
-                        <th>Mobil</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-sm table-bordered" width="100%" cellspacing="0" id="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>No Invoice</th>
+                            <th>Date Sewa</th>
+                            <th>Date Kembali</th>
+                            <th>Customer</th>
+                            <th>Mobil</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 </div>
