@@ -66,7 +66,6 @@ $(document).ready(function () {
                         '<div class="input-group-append">' +
                         '<span class="btn btn-primary btn-sm"><i class="fas fa-search"></i></span>' +
                         '</div>' +
-                        '<input type="text" class="form-control form-control-sm border-0 bg-light" id="year-box" placeholder="Masukkan tahun"> ' +
                     '</div>' +
                 '</div>'+
                 '<div class="col-lg-2">'+
@@ -74,18 +73,11 @@ $(document).ready(function () {
                 '</div>' +
                 '</div>');
 
-    //  $(document).on('keypress','#search-box',function (e) {
-    //         if(e.which == '13'){
-    //             $table.search($(this).val()).draw();
-    //         }
-    //     //  e.preventDefault();
-    //  });
-
-     $(document).on('keyup','#year-box',function (e) {
-            // if(e.which == '13'){
-         e.preventDefault();
+     $(document).on('keypress','#search-box',function (e) {
+            if(e.which == '13'){
                 $table.search($(this).val()).draw();
-            // }
+            }
+        //  e.preventDefault();
      });
 
 
