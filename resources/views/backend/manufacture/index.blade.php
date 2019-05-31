@@ -64,9 +64,11 @@ $(document).ready(function () {
                 '</div>' +
                 '</div>');
 
-     $(document).on('keyup','#search-box',function (e) {
-         e.preventDefault();
-         $table.search($(this).val()).draw() ;
+     $(document).on('keypress','#search-box',function (e) {
+         if(e.which == '13'){
+            $table.search($(this).val()).draw() ;
+         }
+        //  e.preventDefault();
      });
 
 
